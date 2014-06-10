@@ -9,16 +9,25 @@ namespace MotionDetector.helpers
 {
     static public class CalculationHelper
     {
-        public static double GetSad(Bee referenceBloc, Bee bloc)
+        public static double GetSad(IBloc referenceBloc, IBloc bloc)
         {
-            return 0;
+            return referenceBloc.SAD(bloc);
         }
 
-        public IEnumerable<int> BuildBlocListFromImage(int width,int height,int blocSize)
+        public static IEnumerable<int> BuildBlocListFromImage(int width,int height,int blocSize)
         {
-            
-             
+
             return null;
+        }
+
+        public static void ZMP(int threshold,  List<IBloc> reference,  List<IBloc> current)
+        {
+            Func<IBloc,IBloc,bool> action =delegate(IBloc refe,IBloc curr) {
+                return refe.SAD(curr) > threshold;
+                       };
+            reference.Select(
+                (a,i)=> action(a,current[i])
+                );
         }
     }
 }
